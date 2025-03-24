@@ -5,7 +5,7 @@ async function BandeiraAleatoria() {
       const randomCountry = data[Math.floor(Math.random() * data.length)]; //vai gerar um número aleatório dentro da quantidade de países
       const bandeira=randomCountry.cca2.toLowerCase() //pegando a sigla do país e convertendo em minúsculo 
       document.getElementById('flag').src=`https://flagcdn.com/w320/${bandeira}.png` //trasnfora o src da tag img nesse link
-      console.log(randomCountry.name.common)
+      console.log(randomCountry.translations.por.common) //pegando da api a chave que tem o nome em português
     } catch (error) {
       console.error('Erro:', error);
     }
