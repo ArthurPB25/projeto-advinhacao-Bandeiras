@@ -1,20 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        body{
-            background-color: aqua;
-        }
-    </style>
+    <title>Jogo das Bandeiras</title>
 </head>
 <body>
-    <div id="flag-container">
-        <img id="flag" class="flag" src="" alt="Bandeira">
-    </div>
+    <h1>Adivinhe o país!</h1>
+    <img id="flag" src="" alt="Bandeira" width="300">
+    <input type="text" id="answer" placeholder="Digite o nome do país">
+    <button onclick="verificarResposta()">Enviar</button>
+    <p id="result"></p>
+
+    <script src="script.js"></script>
+        
 </body>
 </html>
-<script src="script.js"></script>
-
