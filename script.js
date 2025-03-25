@@ -6,10 +6,13 @@ async function BandeiraAleatoria() {
     try {
         const response = await fetch('https://restcountries.com/v3.1/all')
         const data = await response.json();
+        
         const randomCountry = data[Math.floor(Math.random() * data.length)] //vai gerar um número aleatório dentro da quantidade de países
         const bandeira=randomCountry.cca2.toLowerCase() //pegando a sigla do país e convertendo em minúsculo 
         document.getElementById('flag').src=`https://flagcdn.com/w320/${bandeira}.png` //trasnfora o src da tag img nesse link
+        
         nomeCorreto = randomCountry.translations.por.common
+        
         console.log(randomCountry.translations.por.common)
 
     } catch (error) {
@@ -25,13 +28,10 @@ async function BandeiraAleatoria() {
 
       const response = await fetch("http://localhost:1880/verificar-resposta", {
         method: "POST",
-<<<<<<< HEAD
         headers: { "Content-Type" : "application/json" },
         body: JSON.stringify({ resposta: respostaJogador, correta: nomeCorreto })
-=======
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ resposta: respostaJogador, correta: nomeCorreto }) //faz o metodo post para a verificação
->>>>>>> 3b5b30e627e69c4d34b83ff4c115014acabd7708
     });
 
     const data = await response.json();
