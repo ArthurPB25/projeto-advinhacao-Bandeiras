@@ -1,1 +1,12 @@
+body,hmtl{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5%;
+}
+img{
+border:1px solid black;
+margin-bottom:20px;
+}
 
