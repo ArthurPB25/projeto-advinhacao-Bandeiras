@@ -29,8 +29,6 @@ async function BandeiraAleatoria() {
       const response = await fetch("http://localhost:1880/verificar-resposta", {
         method: "POST",
         headers: { "Content-Type" : "application/json" },
-        body: JSON.stringify({ resposta: respostaJogador, correta: nomeCorreto })
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ resposta: respostaJogador, correta: nomeCorreto }) //faz o metodo post para a verificação
     });
 
