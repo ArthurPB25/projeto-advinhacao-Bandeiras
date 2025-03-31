@@ -1,15 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Jogo de Adivinhação de Bandeiras</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="pais">
-        <h2></h2>
-        <button type="submit" onclick="paisA()">mudar</button>
+    <div id="game-container">
+        <h1>Jogo de Adivinhação de Bandeiras</h1>
+        
+        <div id="score">
+            <p>Pontos: <span id="points">0</span></p>
+        </div>
+        
+        <div id="flag-container">
+            <img id="flag" src="" alt="Bandeira">
+        </div>
+        
+        <input type="text" id="guess" placeholder="Digite o nome do país" autofocus>
+        <button id="submit-btn">Enviar</button>
+        
+        <div id="timer">
+            <p>Tempo: <span id="time-left">30</span> segundos</p>
+        </div>
+        
+        <div id="round-info">
+            <p>Rodada: <span id="round-number">1</span> / 10</p>
+        </div>
     </div>
-    <script src="script.js"></script>
+    
+    <script src="game.js"></script>
 </body>
 </html>
