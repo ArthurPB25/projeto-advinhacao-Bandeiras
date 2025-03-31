@@ -3,22 +3,35 @@ let nomeCorreto = "";
 let cont=1
 let rodada=document.querySelector('h2')
 let resta=document.querySelector('h3')
+let ultimoClique=0
+let penultimoClique=0
+
 
 async function BandeiraAleatoria() {
     try {
-        const response = await fetch('https://restcountries.com/v3.1/all')
-        const data = await response.json();
+        const response = await fetch('https://restcountries.com/v3.1/all')//puxando as informações da api
+        const data = await response.json() //transformando em JSON
         
         const randomCountry = data[Math.floor(Math.random() * data.length)] //vai gerar um número aleatório dentro da quantidade de países
         const bandeira=randomCountry.cca2.toLowerCase() //pegando a sigla do país e convertendo em minúsculo 
         document.getElementById('flag').src=`https://flagcdn.com/w320/${bandeira}.png` //trasnfora o src da tag img nesse link
         
-        nomeCorreto = randomCountry.translations.por.common
+        nomeCorreto = randomCountry.translations.por.common //a variavel vira o nome traduzido do país
         
         console.log(randomCountry.translations.por.common)
 
     } catch (error) {
       console.error('Erro:', error);
+    }
+  }
+
+  function tempo(){
+    penultimoClique=ultimoClique
+    ultimoClique=new Date()
+
+    if (ultimoClique && penultimoClique){
+      let tempoDecorrido=(ultimoClique-penultimoClique)/1000
+      document.getElementById('tempo').innerText=tempoDecorrido+'segundos'
     }
   }
 
@@ -42,6 +55,7 @@ async function BandeiraAleatoria() {
     respostaJogador = document.getElementById("answer").value=''
 
     BandeiraAleatoria()
+    tempo()
 
     console.log(cont)
     rodada.innerText=`Rodada ${cont}`
@@ -52,9 +66,7 @@ async function BandeiraAleatoria() {
     }
     
 
-
-
-
 BandeiraAleatoria()
+tempo()
 
  
