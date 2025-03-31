@@ -1,3 +1,4 @@
+
 let nomeCorreto = "";
 let cont=1
 let rodada=document.querySelector('h2')
@@ -25,7 +26,9 @@ async function BandeiraAleatoria() {
   async function verificarResposta() {
     while(cont<10){
     cont+=1
-    const respostaJogador = document.getElementById("answer").value;
+    
+    let respostaJogador = document.getElementById("answer").value
+    
 
       const response = await fetch("http://localhost:1880/verificar-resposta", {
         method: "POST",
@@ -35,7 +38,11 @@ async function BandeiraAleatoria() {
 
     const data = await response.json();
     document.getElementById("result").innerText = data.resultado;
+
+    respostaJogador = document.getElementById("answer").value=''
+
     BandeiraAleatoria()
+
     console.log(cont)
     rodada.innerText=`Rodada ${cont}`
     resta.innerText=`Restam: ${11-cont}`
@@ -43,6 +50,7 @@ async function BandeiraAleatoria() {
     }
     
     }
+    
 
 
 
@@ -50,4 +58,3 @@ async function BandeiraAleatoria() {
 BandeiraAleatoria()
 
  
-
