@@ -1,1 +1,84 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    transition: background-color 0.5s;  /* Transição suave nas mudanças de cor */
+}
+
+#game-container {
+    text-align: center;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+#flag-container img {
+    width: 100%;
+    height: auto;
+    margin: 20px 0;
+}
+
+input[type="text"] {
+    width: 80%;
+    padding: 8px;
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#timer, #score, #round-info {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+#game-container p {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+#feedback {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.green-background {
+    background-color: #4CAF50;  /* Cor verde para acertos */
+}
+
+.red-background {
+    background-color: #FF6347;  /* Cor vermelha para erros */
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+.fade-out {
+    animation: fadeOut 2s forwards;
+}
