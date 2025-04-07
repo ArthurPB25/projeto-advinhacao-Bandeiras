@@ -35,7 +35,7 @@ async function BandeiraAleatoria() {
     }
   }
 
-  
+
 
 
   async function verificarResposta() {
