@@ -44,16 +44,28 @@
 <body>
     <h1>Bandeiras!</h1>
     <input type="text" placeholder="Nickname" id="nickname">
-    <button onclick="startGame()">OK, vamos la!</button>
+    <button onclick="startGame()">OK, go!</button>
 
     <script>
+        let nome=''
+
+
+        async function salvarNome() {
+                    const response = await fetch("http://localhost:1880/salvarNome", {
+                    method: "POST",
+                    headers: { "Content-Type" : "application/json" },
+                    body: JSON.stringify({nome: nickname}) //faz o metodo post para a verificação
+                    });
+
+                }       
         function startGame() {
             const nickname = document.getElementById('nickname').value;
-                const nomeJSON=JSON.stringify({nome: nickname})
-                console.log(nomeJSON)
-                
             // Aqui você pode adicionar a lógica para iniciar o jogo com o nickname
             alert('Iniciando o jogo para: ' + nickname);
+            salvarNome()
+
+        
+
         }
     </script>
 </body>
