@@ -5,7 +5,8 @@ let rodada=document.querySelector('h2')
 let resta=document.querySelector('h3')
 let ultimoClique=0
 let penultimoClique=0
-
+let timerInterval;
+let timeRemaining = 10;
 
 async function BandeiraAleatoria() {
     try {
@@ -25,15 +26,20 @@ async function BandeiraAleatoria() {
     }
   }
 
-  function tempo(){
-    penultimoClique=ultimoClique
-    ultimoClique=new Date()
-
-    if (ultimoClique && penultimoClique){
-      let tempoDecorrido=(ultimoClique-penultimoClique)/1000
-      document.getElementById('tempo').innerText=tempoDecorrido+'segundos'
-    }
-  }
+  function startTimer() {
+    timeRemaining = 10;
+    document.getElementById('timer').textContent = timeRemaining;
+    clearInterval(timerInterval); // Limpa o intervalo anterior se houver
+    timerInterval = setInterval(function() {
+        timeRemaining--;
+        document.getElementById('timer').textContent = timeRemaining;
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            alert("Tempo esgotado! Resposta incorreta.");
+            showNextQuestion(); // Mostra a próxima pergunta
+        }
+    }, 1000);
+}
 
 
 
@@ -57,7 +63,7 @@ async function BandeiraAleatoria() {
     respostaJogador = document.getElementById("answer").value=''
 
     BandeiraAleatoria()
-    tempo()
+    startTimer()
 
     console.log(cont)
     rodada.innerText=`Rodada ${cont}`
@@ -69,6 +75,6 @@ async function BandeiraAleatoria() {
     
 
 BandeiraAleatoria()
-tempo()
+startTimer()
 
  
