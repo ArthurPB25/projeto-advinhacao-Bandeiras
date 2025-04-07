@@ -44,7 +44,7 @@
 <body>
     <h1>Bandeiras!</h1>
     <input type="text" placeholder="Nickname" id="nickname">
-    <button onclick="startGame()">OK, go!</button>
+    <button onclick="startGame()">OK, vamos la!</button>
 
     <script>
         function startGame() {
