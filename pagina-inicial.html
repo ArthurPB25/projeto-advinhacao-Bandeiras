@@ -49,6 +49,9 @@
     <script>
         function startGame() {
             const nickname = document.getElementById('nickname').value;
+                const nomeJSON=JSON.stringify({nome: nickname})
+                console.log(nomeJSON)
+                
             // Aqui você pode adicionar a lógica para iniciar o jogo com o nickname
             alert('Iniciando o jogo para: ' + nickname);
         }

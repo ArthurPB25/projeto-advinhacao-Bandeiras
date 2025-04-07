@@ -35,6 +35,8 @@ async function BandeiraAleatoria() {
     }
   }
 
+  
+
 
   async function verificarResposta() {
     while(cont<10){
