@@ -47,11 +47,25 @@
     <button onclick="startGame()">OK, vamos la!</button>
 
     <script>
+        let nome=''
+
+
+        async function salvarNome() {
+            const response = await fetch("http://localhost:1880/guardar-nome", {
+            method: "POST",
+            headers: { "Content-Type" : "application/json" },
+            body: JSON.stringify({nome: nickname}) //faz o metodo post para a verificação
+            });
+
+        }       
         function startGame() {
             const nickname = document.getElementById('nickname').value;
             // Aqui você pode adicionar a lógica para iniciar o jogo com o nickname
             alert('Iniciando o jogo para: ' + nickname);
+            salvarNome()
         }
-    </script>
+
+    </script>   
+    
 </body>
 </html>

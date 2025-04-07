@@ -64,9 +64,24 @@ async function BandeiraAleatoria() {
     }
     
     }
+  async function mostrarResposta(){
+    let apelido = document.getElementById("nickname").value
+    const response = await fetch("http://localhost:1880/guardar-nome", {
+      method: "POST",
+      headers: { "Content-Type" : "application/json" },
+      body: JSON.stringify({ name:apelido })//faz o metodo post para a verificação
+      
+      
+  })}
+  
+  document.getElementById
     
+  
 
 BandeiraAleatoria()
 tempo()
 
- 
+    
+
+BandeiraAleatoria()
+tempo()
