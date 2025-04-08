@@ -3,10 +3,9 @@ let nomeCorreto = "";
 let cont=1
 let rodada=document.querySelector('h2')
 let resta=document.querySelector('h3')
-let ultimoClique=0
-let penultimoClique=0
 let timerInterval;
 let timeRemaining = 10;
+let ponto=50
 
 async function BandeiraAleatoria() {
     try {
@@ -35,12 +34,32 @@ function startTimer() {
         document.getElementById('timer').textContent = timeRemaining;
         if (timeRemaining <= 0) {
             clearInterval(timerInterval);
-            alert("Tempo esgotado! Resposta incorreta.");
-            showNextQuestion(); // Mostra a próxima pergunta
+            alert("Tempo esgotado!");
+            verificarResposta()
         }
     }, 1000);
 }
 
+
+function pontos(){
+  if (timeRemaining>=20){
+    ponto+=10
+   }
+  else if (timeRemaining>=15 && timeRemaining<20){
+    ponto+=5
+  }
+  else if (timeRemaining>=11 && timeRemaining<15){
+    ponto+=3
+  }
+  else if (timeRemaining<=10 && timeRemaining>0){
+    ponto+=2
+  }
+  else if (timeRemaining===0){
+    ponto+=0
+  }
+  console.log(ponto)
+}
+   
 
 
 
@@ -60,12 +79,17 @@ async function verificarResposta() {
     const data = await response.json();
     document.getElementById("result").innerText = data.resultado;
 
-    respostaJogador = document.getElementById("answer").value=''
-
+    if(respostaJogador.trim().toLowerCase() === nomeCorreto.trim().toLowerCase()){
+      pontos()
+    }
+    
     BandeiraAleatoria()
     startTimer()
 
+    respostaJogador = document.getElementById("answer").value=''
+
     console.log(cont)
+    
     rodada.innerText=`Rodada ${cont}`
     resta.innerText=`Restam: ${11-cont}`
     break
