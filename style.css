@@ -1,84 +1,53 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* Define o estilo do corpo da página */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f8ff;
+    background-color: #f0f0ff;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column; /* Corrige o alinhamento */
     height: 100vh;
-    transition: background-color 0.5s;  /* Transição suave nas mudanças de cor */
-}
-
-#game-container {
     text-align: center;
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    margin: 0; /* Remove margens padrão do navegador */
 }
 
-#flag-container img {
-    width: 100%;
-    height: auto;
-    margin: 20px 0;
+/* Estilo para o título principal */
+h1 {
+    color: #000000; 
+    font-size: 2.5rem;
+    margin-bottom: 20px;
 }
 
-input[type="text"] {
-    width: 80%;
-    padding: 8px;
-    margin: 10px 0;
-    font-size: 16px;
-}
-
+/* Estilo para o botão de envio */
 button {
-    padding: 10px 15px;
-    font-size: 16px;
-    background-color: #4CAF50;
+    padding: 10px 20px;
+    font-size: 1rem;
     color: white;
+    background-color: #28a745;
     border: none;
-    cursor: pointer;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #218838; /* Efeito de hover */
 }
 
-#timer, #score, #round-info {
-    margin: 10px 0;
-    font-size: 16px;
+/* Estilo para o campo de entrada */
+input[type="text"] {
+    padding: 10px;
+    font-size: 1rem;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    width: 80%;
+    max-width: 300px;
 }
 
-#game-container p {
-    font-size: 18px;
-    margin-top: 10px;
-}
-
-#feedback {
-    font-size: 20px;
+/* Estilo para o resultado */
+p#result {
+    font-size: 1.2rem;
     font-weight: bold;
-    margin-top: 15px;
-}
-
-.green-background {
-    background-color: #4CAF50;  /* Cor verde para acertos */
-}
-
-.red-background {
-    background-color: #FF6347;  /* Cor vermelha para erros */
-}
-
-@keyframes fadeOut {
-    0% { opacity: 1; }
-    100% { opacity: 0; }
-}
-
-.fade-out {
-    animation: fadeOut 2s forwards;
+    color: #ff0000;
+    margin-top: 10px;
 }
