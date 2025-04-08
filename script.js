@@ -26,8 +26,8 @@ async function BandeiraAleatoria() {
     }
   }
 
-  function startTimer() {
-    timeRemaining = 10;
+function startTimer() {
+    timeRemaining = 30;
     document.getElementById('timer').textContent = timeRemaining;
     clearInterval(timerInterval); // Limpa o intervalo anterior se houver
     timerInterval = setInterval(function() {
@@ -44,7 +44,7 @@ async function BandeiraAleatoria() {
 
 
 
-  async function verificarResposta() {
+async function verificarResposta() {
     while(cont<10){
     cont+=1
     
