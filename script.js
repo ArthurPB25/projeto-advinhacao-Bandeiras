@@ -6,7 +6,10 @@ let ultimoClique=0
 let penultimoClique=0
 let timerInterval;
 let timeRemaining = 10;
+let pontos = 0 
 
+
+//função para utilizar a API e gerar bandeiras aleatorias
 async function BandeiraAleatoria() {
     try {
         const response = await fetch('https://restcountries.com/v3.1/all')//puxando as informações da api
@@ -48,6 +51,13 @@ async function BandeiraAleatoria() {
     cont+=1
     
     let respostaJogador = document.getElementById("answer").value
+    while (document.getElementById("answer").value == "Certo"){
+      pontos=+10
+      if (pontos<0){
+        break
+
+      }
+    }
     
 
       const response = await fetch("http://localhost:1880/verificar-resposta", {
@@ -67,6 +77,7 @@ async function BandeiraAleatoria() {
     console.log(cont)
     rodada.innerText=`Rodada ${cont}`
     resta.innerText=`Restam: ${11-cont}`
+    pontos.innerText = `Pontos: ${pontos}`
     break
     }
     
