@@ -7,30 +7,33 @@ let timerInterval;
 let timeRemaining = 10;
 let ponto=50
 
+
 async function salvarNome() {
 
-  const nickname=document.getElementById('nickname').value
+  let nickname=document.getElementById('nickname').value
 
-  const response = await fetch("http://localhost:1880/guardar-nome", {
+  const response = await fetch("http://10.106.208.41:1880/guardar-nome", { //mudar para localhost na maquina 41
       method: "POST",
       headers: { "Content-Type" : "application/json" },
-      body: JSON.stringify({nome: nickname, ponto: ponto}) //faz o metodo post para a verificação
+      body: JSON.stringify({nome: nickname}) //faz o metodo post para a verificação
       });
-      const data = await response.json();
+      const data = await response.json();A
       console.log(data)
       document.getElementById('jogador').innerText=data.nome
 
-      }     
+}     
 
       function startGame() {
-      const nickname = document.getElementById('nickname').value;
+      let nickname = document.getElementById('nickname').value;
       // Aqui você pode adicionar a lógica para iniciar o jogo com o nickname
       alert('Iniciando o jogo para: ' + nickname);
       setTimeout(function() {
            window.location.href = "index.html";
           }, 1000);
       salvarNome()
-      }
+}
+
+
 
 async function BandeiraAleatoria() {
     try {
@@ -67,6 +70,8 @@ function startTimer() {
 
 
 async function pontos(){
+
+
   if (timeRemaining>=20){
     ponto+=10
    }
@@ -84,7 +89,16 @@ async function pontos(){
   }
   console.log(ponto)
 
-  const response = await fetch("http://localhost:1880/guardar-nome", {
+    await fetch("http://10.106.208.41:1880/pegar-nome", {
+    method: "GET",
+    headers: { "Content-Type" : "application/json" },
+    });
+
+   
+
+    
+
+  const response = await fetch("http://10.106.208.41:1880/guardar-nome", {
     method: "POST",
     headers: { "Content-Type" : "application/json" },
     body: JSON.stringify({ponto: ponto}) //faz o metodo post para a verificação
@@ -92,7 +106,7 @@ async function pontos(){
     const data = await response.json();
     console.log(data)
     document.getElementById('pontos').innerText=data.ponto
-}   
+  }
 
 
 
@@ -103,7 +117,7 @@ async function verificarResposta() {
     let respostaJogador = document.getElementById("answer").value
     
 
-      const response = await fetch("http://localhost:1880/verificar-resposta", {
+      const response = await fetch("http://10.106.208.41:1880/verificar-resposta", {
         method: "POST",
         headers: { "Content-Type" : "application/json" },
         body: JSON.stringify({ resposta: respostaJogador, correta: nomeCorreto }) //faz o metodo post para a verificação
