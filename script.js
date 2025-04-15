@@ -7,6 +7,31 @@ let timerInterval;
 let timeRemaining = 10;
 let ponto=50
 
+async function salvarNome() {
+
+  const nickname=document.getElementById('nickname').value
+
+  const response = await fetch("http://localhost:1880/guardar-nome", {
+      method: "POST",
+      headers: { "Content-Type" : "application/json" },
+      body: JSON.stringify({nome: nickname, ponto: ponto}) //faz o metodo post para a verificação
+      });
+      const data = await response.json();
+      console.log(data)
+      document.getElementById('jogador').innerText=data.nome
+
+      }     
+
+      function startGame() {
+      const nickname = document.getElementById('nickname').value;
+      // Aqui você pode adicionar a lógica para iniciar o jogo com o nickname
+      alert('Iniciando o jogo para: ' + nickname);
+      setTimeout(function() {
+           window.location.href = "index.html";
+          }, 1000);
+      salvarNome()
+      }
+
 async function BandeiraAleatoria() {
     try {
         const response = await fetch('https://restcountries.com/v3.1/all')//puxando as informações da api
@@ -41,7 +66,7 @@ function startTimer() {
 }
 
 
-function pontos(){
+async function pontos(){
   if (timeRemaining>=20){
     ponto+=10
    }
@@ -58,8 +83,16 @@ function pontos(){
     ponto+=0
   }
   console.log(ponto)
-}
-   
+
+  const response = await fetch("http://localhost:1880/guardar-nome", {
+    method: "POST",
+    headers: { "Content-Type" : "application/json" },
+    body: JSON.stringify({ponto: ponto}) //faz o metodo post para a verificação
+    });
+    const data = await response.json();
+    console.log(data)
+    document.getElementById('pontos').innerText=data.ponto
+}   
 
 
 
