@@ -16,7 +16,15 @@
     function updateTimerDisplay() {
       const currentTime = Date.now();
       const elapsedTime = currentTime - startTime;
-      timerElement.innerText = (elapsedTime / 1000).toFixed(2) + "s"; // Tempo em segundos com 2 casas decimais
+      
+      const totalSeconds = Math.floor(elapsedTime / 1000);
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
+      const milliseconds = Math.floor((elapsedTime % 1000) / 10); // dois dígitos de ms
+
+      // Exibe como "MM:SS:MS"
+      timerElement.innerText = 
+        `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}:${String(milliseconds).padStart(2, '0')}`;
     }
 
     function startTimer() {
@@ -32,8 +40,8 @@
     // Inicia o cronômetro automaticamente
     startTimer();
 
-    // Para o cronômetro após 10 segundos (exemplo)
-    setTimeout(stopTimer, 100000000000000);  // Para após 10 segundos (ajuste conforme necessário)
+    // Para o cronômetro após 10 minutos (por exemplo)
+    setTimeout(stopTimer, 10 * 60 * 1000);
   </script>
 </body>
 </html>
