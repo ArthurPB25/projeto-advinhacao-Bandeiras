@@ -1,23 +1,27 @@
+let nickname = '';
+let jogadorNome = '';
 let nomeCorreto = "";
 let cont = 1;
 let rodada = document.querySelector('h2');
 let resta = document.querySelector('h3');
 let timerInterval;
-let timeRemaining = 10;
-let ponto = 50;
+let timeRemaining = 30;  // Início com 30 segundos
+let ponto = 50;  // A pontuação inicial
 const timerElement = document.getElementById("cronometro");
 let startTime = null;
 let intervalId = null;
-let totalTime = 0; // Variável para armazenar o tempo total
+let totalTime = 0;
 
 // Função para salvar o nome do jogador
 async function salvarNome() {
-    let nickname = document.getElementById('nickname').value;
+    nickname = document.getElementById('nickname').value.trim().toLowerCase();
+
     const response = await fetch("http://10.106.208.41:1880/guardar-nome", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ nome: nickname })
     });
+
     const data = await response.json();
     console.log(data);
     document.getElementById('jogador').innerText = data.nome;
@@ -25,11 +29,11 @@ async function salvarNome() {
 
 // Função para iniciar o jogo
 function startGame() {
-    let nickname = document.getElementById('nickname').value;
+    nickname = document.getElementById('nickname').value.trim().toLowerCase();
     alert('Iniciando o jogo para: ' + nickname);
     setTimeout(function () {
         window.location.href = "index.html";
-    }, 1000);
+    }, 10000);
     salvarNome();
 }
 
@@ -48,14 +52,39 @@ async function BandeiraAleatoria() {
     }
 }
 
-// Função para iniciar o cronômetro
+// Atualiza cronômetro a cada 100ms
+function updateTimerDisplay() {
+    const currentTime = Date.now();
+    const elapsedTime = currentTime - startTime;
+
+    const totalSeconds = Math.floor(elapsedTime / 1000);
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    const milliseconds = Math.floor((elapsedTime % 1000) / 10);
+
+    timerElement.innerText = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}:${String(milliseconds).padStart(2, '0')}`;
+}
+
+function startTempo() {
+    startTime = Date.now();
+    intervalId = setInterval(updateTimerDisplay, 100);
+}
+
+function stopTempo() {
+    clearInterval(intervalId);
+    intervalId = null;
+}
+
 function startTimer() {
     timeRemaining = 30;
     document.getElementById('timer').textContent = timeRemaining;
+
     clearInterval(timerInterval);
+
     timerInterval = setInterval(function () {
         timeRemaining--;
         document.getElementById('timer').textContent = timeRemaining;
+
         if (timeRemaining <= 0) {
             clearInterval(timerInterval);
             alert("Tempo esgotado!");
@@ -64,38 +93,27 @@ function startTimer() {
     }, 1000);
 }
 
-// Função para atualizar a exibição do tempo
-async function updateTimerDisplay() {
+// Salvar tempo final
+async function salvarTempoFinal() {
     const currentTime = Date.now();
     const elapsedTime = currentTime - startTime;
-    totalTime = elapsedTime / 1000; // Armazena o tempo total em segundos
-    timerElement.innerText = totalTime.toFixed(2) + "s";
-}
 
-// Função para iniciar o tempo
-function startTempo() {
-    startTime = Date.now();
-    intervalId = setInterval(updateTimerDisplay, 100); // Atualiza a cada 100ms
-}
+    const totalSeconds = Math.floor(elapsedTime / 1000);
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
 
-// Função para parar o tempo
-function stopTempo() {
-    clearInterval(intervalId);
-    intervalId = null;
-}
+    totalTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
-// Função para salvar o tempo após a 10ª rodada
-async function salvarTempoFinal() {
     const response = await fetch("http://10.106.208.41:1880/guardar-nome", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ tempo: totalTime }) // Envia o tempo total
+        body: JSON.stringify({ nome: nickname, tempo: totalTime })
     });
     const data = await response.json();
     console.log("Tempo final salvo:", data);
 }
 
-// Função para verificar a resposta do jogador
+// Verifica resposta
 async function verificarResposta() {
     if (cont < 10) {
         cont++;
@@ -109,53 +127,52 @@ async function verificarResposta() {
         document.getElementById("result").innerText = data.resultado;
 
         if (respostaJogador.trim().toLowerCase() === nomeCorreto.trim().toLowerCase()) {
-            pontos();
+            await pontos();
         }
 
         BandeiraAleatoria();
         startTimer();
-        respostaJogador = document.getElementById("answer").value = '';
+        document.getElementById("answer").value = '';
         console.log(cont);
 
         rodada.innerText = `Rodada ${cont}`;
         resta.innerText = `Restam: ${11 - cont}`;
     } else {
-        // Ao final da 10ª rodada, salvar o tempo total e redirecionar para a página de ranking
         await salvarTempoFinal();
         window.location.href = 'ranking.html';
     }
 }
 
-// Função para calcular os pontos do jogador
+// Pontuação
 async function pontos() {
+    // Calculando pontos com base no tempo restante
     if (timeRemaining >= 20) {
         ponto += 10;
-    } else if (timeRemaining >= 15 && timeRemaining < 20) {
+    } else if (timeRemaining >= 15) {
         ponto += 5;
-    } else if (timeRemaining >= 11 && timeRemaining < 15) {
+    } else if (timeRemaining >= 11) {
         ponto += 3;
-    } else if (timeRemaining <= 10 && timeRemaining > 0) {
+    } else if (timeRemaining > 0) {
         ponto += 2;
-    } else if (timeRemaining === 0) {
-        ponto += 0;
     }
 
-    await fetch("http://10.106.208.41:1880/pegar-nome", {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-    });
+    // Atualiza a pontuação do jogador no backend
+    const responseNome = await fetch("http://10.106.208.41:1880/pegar-nome");
+    const dataNome = await responseNome.json();
+    jogadorNome = dataNome.nome;
 
     const response = await fetch("http://10.106.208.41:1880/guardar-nome", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ponto: ponto })
+        body: JSON.stringify({ nome: jogadorNome, ponto: ponto })
     });
+
     const data = await response.json();
     console.log(data);
     document.getElementById('pontos').innerText = data.ponto;
 }
 
-// Função para iniciar o cronômetro e as rodadas
+// Início do jogo
 BandeiraAleatoria();
 startTimer();
 startTempo();
