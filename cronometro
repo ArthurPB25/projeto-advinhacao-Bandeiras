@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cronômetro</title>
+</head>
+<body>
+  <div id="timer" style="font-size: 30px;"></div>
+
+  <script>
+    const timerElement = document.getElementById("timer");
+    let startTime = null;
+    let intervalId = null;
+
+    function updateTimerDisplay() {
+      const currentTime = Date.now();
+      const elapsedTime = currentTime - startTime;
+      timerElement.innerText = (elapsedTime / 1000).toFixed(2) + "s"; // Tempo em segundos com 2 casas decimais
+    }
+
+    function startTimer() {
+      startTime = Date.now();
+      intervalId = setInterval(updateTimerDisplay, 100); // Atualiza a cada 100ms
+    }
+
+    function stopTimer() {
+      clearInterval(intervalId);
+      intervalId = null;
+    }
+
+    // Inicia o cronômetro automaticamente
+    startTimer();
+
+    // Para o cronômetro após 10 segundos (exemplo)
+    setTimeout(stopTimer, 100000000000000);  // Para após 10 segundos (ajuste conforme necessário)
+  </script>
+</body>
+</html>
