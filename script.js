@@ -1,5 +1,8 @@
-let nickname = '';
-let jogadorNome = '';
+const urlParams = new URLSearchParams(window.location.search);
+let nickname = urlParams.get('nickname') || '';
+
+// Variáveis do jogo
+let nome = '';
 let nomeCorreto = "";
 let cont = 1;
 let rodada = document.querySelector('h2');
@@ -15,11 +18,17 @@ let totalTime = 0;
 // Função para salvar o nome do jogador
 async function salvarNome() {
     nickname = document.getElementById('nickname').value.trim().toLowerCase();
+    console.log("Nome digitado:", nickname);
+
+    if (!nickname) {
+        alert("Por favor, digite seu nome antes de iniciar!");
+        return;
+    }
 
     const response = await fetch("http://10.106.208.41:1880/guardar-nome", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome: nickname })
+        body: JSON.stringify({ nome: nickname, ponto: 0 })
     });
 
     const data = await response.json();
@@ -27,15 +36,24 @@ async function salvarNome() {
     document.getElementById('jogador').innerText = data.nome;
 }
 
+
+
 // Função para iniciar o jogo
-function startGame() {
+async function startGame() {
     nickname = document.getElementById('nickname').value.trim().toLowerCase();
+    
+    if (!nickname) {
+        alert("Por favor, digite seu nome antes de iniciar!");
+        return;
+    }
+    
+    await salvarNome(); // Primeiro salva o nome no servidor
     alert('Iniciando o jogo para: ' + nickname);
-    setTimeout(function () {
-        window.location.href = "index.html";
-    }, 10000);
-    salvarNome();
+
+    // Redireciona passando o nickname pela URL
+    window.location.href = "index.html?nickname=" + encodeURIComponent(nickname);
 }
+
 
 // Função para obter uma bandeira aleatória
 async function BandeiraAleatoria() {
@@ -145,32 +163,31 @@ async function verificarResposta() {
 
 // Pontuação
 async function pontos() {
-    // Calculando pontos com base no tempo restante
+    let pontosGanhos = 0;
+
     if (timeRemaining >= 20) {
-        ponto += 10;
+        pontosGanhos = 10;
     } else if (timeRemaining >= 15) {
-        ponto += 5;
+        pontosGanhos = 5;
     } else if (timeRemaining >= 11) {
-        ponto += 3;
+        pontosGanhos = 3;
     } else if (timeRemaining > 0) {
-        ponto += 2;
+        pontosGanhos = 2;
     }
 
-    // Atualiza a pontuação do jogador no backend
-    const responseNome = await fetch("http://10.106.208.41:1880/pegar-nome");
-    const dataNome = await responseNome.json();
-    jogadorNome = dataNome.nome;
+    ponto += pontosGanhos;
 
     const response = await fetch("http://10.106.208.41:1880/guardar-nome", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome: jogadorNome, ponto: ponto })
+        body: JSON.stringify({ nome: nickname, ponto: pontosGanhos })  // Só manda o quanto ganhou
     });
 
     const data = await response.json();
     console.log(data);
     document.getElementById('pontos').innerText = data.ponto;
 }
+
 
 // Início do jogo
 BandeiraAleatoria();
