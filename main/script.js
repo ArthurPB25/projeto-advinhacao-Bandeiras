@@ -1,3 +1,4 @@
+// Salva o nome na URL
 const urlParams = new URLSearchParams(window.location.search);
 let nickname = urlParams.get('nickname') || '';
 
@@ -15,44 +16,6 @@ let startTime = null;
 let intervalId = null;
 let totalTime = 0;
 
-// Função para salvar o nome do jogador
-async function salvarNome() {
-    nickname = document.getElementById('nickname').value.trim().toLowerCase();
-    console.log("Nome digitado:", nickname);
-
-    if (!nickname) {
-        alert("Por favor, digite seu nome antes de iniciar!");
-        return;
-    }
-
-    const response = await fetch("http://10.106.208.41:1880/guardar-nome", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome: nickname, ponto: 0 })
-    });
-
-    const data = await response.json();
-    console.log(data);
-    document.getElementById('jogador').innerText = data.nome;
-}
-
-
-
-// Função para iniciar o jogo
-async function startGame() {
-    nickname = document.getElementById('nickname').value.trim().toLowerCase();
-    
-    if (!nickname) {
-        alert("Por favor, digite seu nome antes de iniciar!");
-        return;
-    }
-    
-    await salvarNome(); // Primeiro salva o nome no servidor
-    alert('Iniciando o jogo para: ' + nickname);
-
-    // Redireciona passando o nickname pela URL
-    window.location.href = "index.html?nickname=" + encodeURIComponent(nickname);
-}
 
 
 // Função para obter uma bandeira aleatória
@@ -157,7 +120,7 @@ async function verificarResposta() {
         resta.innerText = `Restam: ${11 - cont}`;
     } else {
         await salvarTempoFinal();
-        window.location.href = 'ranking.html';
+        window.location.href = '../ranking/ranking.html';
     }
 }
 
