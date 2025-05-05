@@ -1,5 +1,5 @@
 async function ranking() {
-    const response = await fetch("https://10.106.208.41:1880/pegar-nome", { method: "GET" });
+    const response = await fetch("https://f0a8-200-211-208-194.ngrok-free.app/pegar-nome", { method: "GET" });
     const data = await response.json();
     console.log(data); // Conferir a estrutura dos dados
 
