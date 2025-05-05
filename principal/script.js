@@ -148,7 +148,7 @@ async function pontos() {
 
     const data = await response.json();
     console.log(data);
-    document.getElementById('pontos').innerText = data.ponto;
+    document.getElementById('pontos').innerText = ponto;
 }
 
 
