@@ -32,5 +32,5 @@ async function startGame() {
     alert('Iniciando o jogo para: ' + nickname);
 
     // Redireciona passando o nickname pela URL
-    window.location.href = "../principal/index.html?nickname=" + encodeURIComponent(nickname)
+    window.location.href = "../projeto-advinhacao-Bandeiras/principal/index.html?nickname=" + encodeURIComponent(nickname)
 }
