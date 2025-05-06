@@ -29,7 +29,7 @@ async function BandeiraAleatoria() {
         nomeCorreto = randomCountry.translations.por.common;
         console.log(randomCountry.translations.por.common);
     } catch (error) {
-        console.error('Erro:', error);
+        console.error ('Erro:', error);
     }
 }
 
@@ -44,7 +44,17 @@ function updateTimerDisplay() {
     const milliseconds = Math.floor((elapsedTime % 1000) / 10);
 
     timerElement.innerText = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}:${String(milliseconds).padStart(2, '0')}`;
+
+    // Altera cor de acordo com o tempo total
+    if (totalSeconds <= 30) {
+        timerElement.style.color = "#4CAF50"; // Verde
+    } else if (totalSeconds <= 60) {
+        timerElement.style.color = "#FFA500"; // Laranja
+    } else {
+        timerElement.style.color = "#FF6347"; // Vermelho
+    }
 }
+
 
 function startTempo() {
     startTime = Date.now();
