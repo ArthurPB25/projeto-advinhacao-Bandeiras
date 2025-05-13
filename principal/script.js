@@ -94,7 +94,8 @@ async function salvarTempoFinal() {
     console.log("Tempo final salvo:", data);
 }
 
-// Verifica resposta
+//verifica resposta
+
 async function verificarResposta() {
     if (cont < 10) {
         cont++;
@@ -104,25 +105,41 @@ async function verificarResposta() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ resposta: respostaJogador, correta: nomeCorreto })
         });
+
         const data = await response.json();
         document.getElementById("result").innerText = data.resultado;
 
+        const somAcerto = document.getElementById("somAcerto");
+        const somErro = document.getElementById("somErro");
+
         if (respostaJogador.trim().toLowerCase() === nomeCorreto.trim().toLowerCase()) {
+            somAcerto.play(); // toca som de acerto
             await pontos();
+            document.body.style.backgroundColor = "green"; // muda a cor para verde
+        } else {
+            somErro.play(); // toca som de erro
+            document.body.style.backgroundColor = "red"; // muda a cor para vermelho
         }
 
-        BandeiraAleatoria();
-        startTimer();
-        document.getElementById("answer").value = '';
-        console.log(cont);
+        // Delay de 1 segundo antes de resetar a cor e passar para a próxima bandeira
+        setTimeout(() => {
+            document.body.style.backgroundColor = ""; // reseta a cor de fundo
+            BandeiraAleatoria();
+            startTimer();
+            document.getElementById("answer").value = '';
+            console.log(cont);
 
-        rodada.innerText = `Rodada ${cont}`;
-        resta.innerText = `Restam: ${11 - cont}`;
+            rodada.innerText = `Rodada ${cont}`;
+            resta.innerText = `Restam: ${11 - cont}`;
+        }, 1000); // 1000ms = 1 segundo
+
     } else {
         await salvarTempoFinal();
         window.location.href = '../ranking/ranking.html';
     }
 }
+
+
 
 // Pontuação
 async function pontos() {
