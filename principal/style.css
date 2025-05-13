@@ -134,3 +134,8 @@ button:hover {
     font-family: monospace;
     transition: color 0.3s ease;
 }
+
+#pontos{
+    margin-top: 3%;
+    margin-bottom: 3%
+}
