@@ -1,4 +1,5 @@
 // Salva o nome na URL
+const baseURL = 'http://localhost:3000';
 const urlParams = new URLSearchParams(window.location.search);
 let nickname = urlParams.get('nickname') || '';
 
@@ -85,7 +86,7 @@ async function salvarTempoFinal() {
 
     totalTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
-    const response = await fetch("http://10.106.208.41:1880/guardar-nome", {
+    const response = await fetch(`${baseURL}/guardar-nome`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ nome: nickname, tempo: totalTime })
@@ -100,7 +101,7 @@ async function verificarResposta() {
     if (cont < 10) {
         cont++;
         let respostaJogador = document.getElementById("answer").value;
-        const response = await fetch("http://10.106.208.41:1880/verificar-resposta", {
+        const response = await fetch(`${baseURL}/verificar-resposta`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ resposta: respostaJogador, correta: nomeCorreto })
@@ -157,7 +158,7 @@ async function pontos() {
 
     ponto += pontosGanhos;
 
-    const response = await fetch("http://10.106.208.41:1880/guardar-nome", {
+    const response = await fetch(`${baseURL}/guardar-nome`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ nome: nickname, ponto: pontosGanhos })  // Só manda o quanto ganhou

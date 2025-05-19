@@ -1,5 +1,6 @@
+const baseURL = 'http://localhost:3000';
 async function ranking() {
-    const response = await fetch("http://10.106.208.41:1880/pegar-nome", { method: "GET" });
+    const response = await fetch(`${baseURL}/pegar-nome`, { method: "GET" });
     const data = await response.json();
     console.log(data); // Conferir a estrutura dos dados
 

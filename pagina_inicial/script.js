@@ -1,4 +1,4 @@
-
+const baseURL = 'http://localhost:3000';
 async function salvarNome() {
     nickname = document.getElementById('nickname').value.trim().toLowerCase();
     console.log("Nome digitado:", nickname);
@@ -8,7 +8,7 @@ async function salvarNome() {
         return;
     }
 
-    const response = await fetch("http://10.106.208.41:1880/guardar-nome", {
+    const response = await fetch(`${baseURL}/guardar-nome`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ nome: nickname, ponto: 0 })
