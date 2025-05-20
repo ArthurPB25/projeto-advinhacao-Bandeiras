@@ -1,4 +1,4 @@
-const baseURL = 'http://localhost:3000';
+const baseURL = 'https://projeto-advinhacao-bandeiras-1.onrender.com';
 async function salvarNome() {
     nickname = document.getElementById('nickname').value.trim().toLowerCase();
     console.log("Nome digitado:", nickname);
@@ -8,7 +8,7 @@ async function salvarNome() {
         return;
     }
 
-    const response = await fetch(`/guardar-nome`, {
+    const response = await fetch(`${baseURL}/guardar-nome`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ nome: nickname, ponto: 0 })
