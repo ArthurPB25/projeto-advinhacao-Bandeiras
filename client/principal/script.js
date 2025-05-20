@@ -86,7 +86,7 @@ async function salvarTempoFinal() {
 
     totalTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
-    const response = await fetch(`${baseURL}/guardar-nome`, {
+    const response = await fetch(`/guardar-nome`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ nome: nickname, tempo: totalTime })
@@ -101,7 +101,7 @@ async function verificarResposta() {
     if (cont < 10) {
         cont++;
         let respostaJogador = document.getElementById("answer").value;
-        const response = await fetch(`${baseURL}/verificar-resposta`, {
+        const response = await fetch(`/verificar-resposta`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ resposta: respostaJogador, correta: nomeCorreto })

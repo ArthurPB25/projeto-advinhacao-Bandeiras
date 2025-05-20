@@ -8,7 +8,7 @@ async function salvarNome() {
         return;
     }
 
-    const response = await fetch(`${baseURL}/guardar-nome`, {
+    const response = await fetch(`/guardar-nome`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ nome: nickname, ponto: 0 })
