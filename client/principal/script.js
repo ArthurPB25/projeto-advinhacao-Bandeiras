@@ -1,5 +1,5 @@
 // Salva o nome na URL
-const baseURL = 'http://localhost:3000';
+const baseURL = 'https://projeto-advinhacao-bandeiras-1.onrender.com';
 const urlParams = new URLSearchParams(window.location.search);
 let nickname = urlParams.get('nickname') || '';
 
@@ -86,7 +86,7 @@ async function salvarTempoFinal() {
 
     totalTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
-    const response = await fetch(`/guardar-nome`, {
+    const response = await fetch(`${baseURL}/guardar-nome`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ nome: nickname, tempo: totalTime })
