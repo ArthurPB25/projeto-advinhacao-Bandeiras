@@ -8,7 +8,7 @@ async function salvarNome() {
         return;
     }
 
-    const response = await fetch(`https://e6ae-200-206-76-106.ngrok-free.app/guardar-nome`, {
+    const response = await fetch(`https://bcca-200-206-76-106.ngrok-free.app/guardar-nome`, {
         method: "POST",
         headers: { 'ngrok-skip-browser-warning': 'true'  },
         body: JSON.stringify({ nome: nickname, ponto: 0 })
