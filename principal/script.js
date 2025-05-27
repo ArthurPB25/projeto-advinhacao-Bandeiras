@@ -86,7 +86,7 @@ async function salvarTempoFinal() {
 
     totalTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
-    const response = await fetch(`https://e6ae-200-206-76-106.ngrok-free.app/guardar-nome`, {
+    const response = await fetch(`https://bcca-200-206-76-106.ngrok-free.app/guardar-nome`, {
         method: "POST",
         headers: { 'ngrok-skip-browser-warning': 'true' },
         body: JSON.stringify({ nome: nickname, tempo: totalTime })
@@ -101,7 +101,7 @@ async function verificarResposta() {
     if (cont < 10) {
         cont++;
         let respostaJogador = document.getElementById("answer").value;
-        const response = await fetch(`https://e6ae-200-206-76-106.ngrok-free.app/verificar-resposta`, {
+        const response = await fetch(`https://bcca-200-206-76-106.ngrok-free.app/verificar-resposta`, {
             method: "POST",
             headers: { 'ngrok-skip-browser-warning': 'true' },
             body: JSON.stringify({ resposta: respostaJogador, correta: nomeCorreto })
@@ -158,7 +158,7 @@ async function pontos() {
 
     ponto += pontosGanhos;
 
-    const response = await fetch(`https://e6ae-200-206-76-106.ngrok-free.app/guardar-nome`, {
+    const response = await fetch(`https://bcca-200-206-76-106.ngrok-free.app/guardar-nome`, {
         method: "POST",
         headers: { 'ngrok-skip-browser-warning': 'true' },
         body: JSON.stringify({ nome: nickname, ponto: pontosGanhos })  // Só manda o quanto ganhou
