@@ -10,7 +10,7 @@ async function salvarNome() {
 
     const response = await fetch(`https://bcca-200-206-76-106.ngrok-free.app/guardar-nome`, {
         method: "POST",
-        headers: { 'ngrok-skip-browser-warning': 'true'  },
+        headers: { 'Content-Type': 'application/json','ngrok-skip-browser-warning': 'true'  },
         body: JSON.stringify({ nome: nickname, ponto: 0 })
     });
 
