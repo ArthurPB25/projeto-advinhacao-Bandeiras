@@ -1,6 +1,6 @@
-
+const baseURL= https://e83f-200-206-76-106.ngrok-free.app
 async function ranking() {
-    const response = await fetch(`https://bcca-200-206-76-106.ngrok-free.app/pegar-nome`, { method: "GET" , headers: { 'Content-Type': 'application/json','ngrok-skip-browser-warning': 'true' }, });
+    const response = await fetch(`${baseURL}/pegar-nome`, { method: "GET" , headers: { 'Content-Type': 'application/json','ngrok-skip-browser-warning': 'true' }, });
     const data = await response.json();
     console.log(data); // Conferir a estrutura dos dados
 
