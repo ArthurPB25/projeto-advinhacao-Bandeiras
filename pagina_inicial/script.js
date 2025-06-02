@@ -1,4 +1,4 @@
-
+const baseURL ='https://e83f-200-206-76-106.ngrok-free.app';
 async function salvarNome() {
     nickname = document.getElementById('nickname').value.trim().toLowerCase();
     console.log("Nome digitado:", nickname);
@@ -8,7 +8,7 @@ async function salvarNome() {
         return;
     }
 
-    const response = await fetch(`https://bcca-200-206-76-106.ngrok-free.app/guardar-nome`, {
+    const response = await fetch(`${baseURL}/guardar-nome`, {
         method: "POST",
         headers: { 'Content-Type': 'application/json','ngrok-skip-browser-warning': 'true'  },
         body: JSON.stringify({ nome: nickname, ponto: 0 })
