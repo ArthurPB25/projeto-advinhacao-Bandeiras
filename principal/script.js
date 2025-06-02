@@ -1,5 +1,5 @@
 // Salva o nome na URL
-
+const baseURL = https://e83f-200-206-76-106.ngrok-free.app
 const urlParams = new URLSearchParams(window.location.search);
 let nickname = urlParams.get('nickname') || '';
 
@@ -86,7 +86,7 @@ async function salvarTempoFinal() {
 
     totalTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
-    const response = await fetch(`https://bcca-200-206-76-106.ngrok-free.app/guardar-nome`, {
+    const response = await fetch(`${baseURL}/guardar-nome`, {
         method: "POST",
         headers: { 'Content-Type': 'application/json','ngrok-skip-browser-warning': 'true' },
         body: JSON.stringify({ nome: nickname, tempo: totalTime })
@@ -101,7 +101,7 @@ async function verificarResposta() {
     if (cont < 10) {
         cont++;
         let respostaJogador = document.getElementById("answer").value;
-        const response = await fetch(`https://bcca-200-206-76-106.ngrok-free.app/verificar-resposta`, {
+        const response = await fetch(`${baseURL}/verificar-resposta`, {
             method: "POST",
             headers: { 'Content-Type': 'application/json','ngrok-skip-browser-warning': 'true' },
             body: JSON.stringify({ resposta: respostaJogador, correta: nomeCorreto })
@@ -158,7 +158,7 @@ async function pontos() {
 
     ponto += pontosGanhos;
 
-    const response = await fetch(`https://bcca-200-206-76-106.ngrok-free.app/guardar-nome`, {
+    const response = await fetch(`${baseURL}/guardar-nome`, {
         method: "POST",
         headers: { 'Content-Type': 'application/json','ngrok-skip-browser-warning': 'true' },
         body: JSON.stringify({ nome: nickname, ponto: pontosGanhos })  // Só manda o quanto ganhou
