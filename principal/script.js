@@ -22,15 +22,16 @@ let totalTime = 0;
 // Função para obter uma bandeira aleatória
 async function BandeiraAleatoria() {
     try {
-        const response = await fetch('https://restcountries.com/v3.1/all');
+        const response = await fetch('https://restcountries.com/v2/all?fields=name,flags,translations');
         const data = await response.json();
         const randomCountry = data[Math.floor(Math.random() * data.length)];
-        const bandeira = randomCountry.cca2.toLowerCase();
-        document.getElementById('flag').src = `https://flagcdn.com/w320/${bandeira}.png`;
-        nomeCorreto = randomCountry.translations.por.common;
-        console.log(randomCountry.translations.por.common);
+
+        document.getElementById('flag').src = randomCountry.flags.png;
+        nomeCorreto = randomCountry.translations.pt || randomCountry.name;
+
+        console.log("País correto:", nomeCorreto);
     } catch (error) {
-        console.error('Erro:', error);
+        console.error('Erro ao carregar bandeira:', error);
     }
 }
 
