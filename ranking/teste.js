@@ -1,4 +1,4 @@
-const baseURL= ' https://d338-200-211-208-194.ngrok-free.app'
+const baseURL= 'https://5d29-191-193-23-29.ngrok-free.app'
 async function ranking() {
     const response = await fetch(`${baseURL}/pegar-nome`, { method: "GET" , headers: { 'Content-Type': 'application/json','ngrok-skip-browser-warning': 'true' }, });
     const data = await response.json();
