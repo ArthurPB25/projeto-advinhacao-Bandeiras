@@ -1,5 +1,5 @@
 // Salva o nome na URL
-const baseURL = ' https://d338-200-211-208-194.ngrok-free.app'
+const baseURL = 'https://5d29-191-193-23-29.ngrok-free.app'
 const urlParams = new URLSearchParams(window.location.search);
 let nickname = urlParams.get('nickname') || '';
 
