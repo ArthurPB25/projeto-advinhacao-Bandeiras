@@ -11,7 +11,7 @@ let rodada = document.querySelector('h2');
 let resta = document.querySelector('h3');
 let timerInterval;
 let timeRemaining = 30;  // Início com 30 segundos
-let ponto = 0;  // A pontuação inicial
+let ponto = 50;  // A pontuação inicial
 const timerElement = document.getElementById("cronometro");
 let startTime = null;
 let intervalId = null;
